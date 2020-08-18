@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<head>
+	<style>
+		* {
+		font-family: Arial, Helvetica, sans-serif;
+		}
+	
+		body {
+		background-color: #141414;
+		text-align: center;
+		color: #fff;
+		}
+		
+		a {
+		color: #fff;
+		}
+	</style>
+	
+	<script>
+	    function searchgoogle() {
+		var Google = document.getElementById("search").value;
+		location.replace("https://www.google.com/search?q=" + Google + "");
+		}
+		
+		function searchddg() {
+		var Ddg = document.getElementById("search").value;
+		location.replace("https://duckduckgo.com/?q=" + Ddg + "");
+		}
+		
+	</script>
+</head>
+<body>
+<p><input id="search" placeholder="Search"></textarea> <button onclick="searchgoogle()">Search Google</button> <button onclick="searchddg()">Search DuckDuckGo</button></p>
+
+<p><a href="https://www.csgorunner.com/76561198316646133">check stats of current csgo game</a></p>
+
+<p><a href="https://steamcommunity.com/id/Skiletro">steam profile</a></p>
+
+<p><a href="https://steamcommunity.com/id/Skiletro/inventory/#730">csgo inventory</a></p>
+</body>
