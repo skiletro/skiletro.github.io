@@ -1,24 +1,12 @@
-VANTA.DOTS({
-  el: "*",
-  mouseControls: false,
-  touchControls: false,
-  gyroControls: false,
-  minHeight: 200.00,
-  minWidth: 200.00,
-  scale: 1.00,
-  scaleMobile: 1.00,
-  color: 0xAB4AFF,
-  color2: 0x121212,
-  backgroundColor: 0x121212,
-  spacing: 32.00
+VANTA.FOG({
+    el: "*",
+    mouseControls: true,
+    touchControls: true,
+    gyroControls: false,
+    minHeight: 200.00,
+    minWidth: 200.00,
+    highlightColor: 0x0,
+    midtoneColor: 0x121212,
+    lowlightColor: 0xab4aff,
+    baseColor: 0x121212
 })
-
-let showaltpage = function() {
-  if ($("#one").is(":visible")) {
-    $("#one").hide();
-    $("#two").show();
-  } else {
-    $("#one").show();
-    $("#two").hide();
-  }
-}
