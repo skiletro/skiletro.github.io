@@ -173,6 +173,8 @@ h2 {
 
 #one h1,
 #one h2,
+#one p,
+#one .infobox,
 #one .socialicons {
     opacity: 0;
 }
@@ -196,13 +198,13 @@ h2 {
         text-align: center;
     }
 
-    #nav {
+    /*body.center #nav {
         margin-top: 0;
     }
 
-    body {
+    body.center {
         justify-content: center;
-    }
+    }*/
 
 }
 
