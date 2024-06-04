@@ -1,0 +1,7 @@
+{{ $siteTitle := lower site.Title }}
+{{ $pageTitle := lower .Title  }}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>{{ if .IsHome }}{{ $siteTitle }}{{ else }}{{ printf "%s | %s" $pageTitle $siteTitle }}{{ end }}</title>
+{{ partialCached "head/css.html" . }}
+{{ partialCached "head/js.html" . }}

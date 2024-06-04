@@ -1,0 +1,43 @@
+baseURL = "https://skiletro.com"
+languageCode = "en-gb"
+title = "Skiletro"
+author = "Skiletro"
+theme = "oldnewweb"
+
+# automatically add content sections to main menu
+sectionPagesMenu = "main"
+
+[[params.socialLinks]]
+title = "GitHub"
+url = "https://github.com/skiletro"
+
+[[params.socialLinks]]
+title = "Spotify"
+url = "https://open.spotify.com/user/skiletro"
+
+[[params.socialLinks]]
+title = "Last.fm"
+url = "https://www.last.fm/user/Skiletro"
+
+[[params.socialLinks]]
+title = "Steam"
+url = "https://steamcommunity.com/id/skiletro"
+
+[[params.socialLinks]]
+title = "matrix"
+url = "https://matrix.to/#/@jvmi:matrix.org"
+
+
+[menu]
+[[menu.main]]
+identifier = "home"
+name = "Home"
+url = "/"
+weight = 10
+[[menu.main]]
+identifier = "playlists"
+name = "Playlists"
+url = "/playlists/"
+weight = 11
+
+markup.highlight.noClasses=false

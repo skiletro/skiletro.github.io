@@ -1,0 +1,18 @@
+{{ define "main" }}
+{{ $blogPosts := where site.RegularPages "Section" "posts" }}
+  <section>
+    {{ .Content }}
+  </section>
+  <!-- Doesn't show this section of there are no posts... -->
+  {{ $numPosts := len $blogPosts }}
+  {{ if ge $numPosts 1 }}
+  <section>
+    <h1>last few posts</h1>
+    <ul>
+    {{ range last 3 $blogPosts }}
+      <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a> ... <time datetime="{{ .Date | time.Format "2006-01-02T15:04:05-07:00" }}">{{ .Date | time.Format ":date_long" }}</time></li>
+    {{ end }}
+    </ul>
+  </section>
+  {{ end }}
+{{ end }}

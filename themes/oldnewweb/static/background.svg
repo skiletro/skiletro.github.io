@@ -1,0 +1,54 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none"
+    xmlns="http://www.w3.org/2000/svg">
+    <rect width="1920" height="1080" fill="#1E1E1E" />
+    <g filter="url(#filter0_f_1_20)">
+        <circle cx="347.909" cy="1125.49" r="251.897" transform="rotate(172.442 347.909 1125.49)"
+            fill="#46A6FF" />
+        <circle cx="6.8428" cy="885.864" r="251.897" transform="rotate(172.442 6.8428 885.864)"
+            fill="#E546FF" />
+        <ellipse cx="6.6345" cy="501.342" rx="259.485" ry="257.447"
+            transform="rotate(172.442 6.6345 501.342)" fill="#9867FF" />
+        <circle cx="1493.43" cy="6.4294" r="251.897" transform="rotate(-20.6043 1493.43 6.4294)"
+            fill="#46A6FF" />
+        <circle cx="1879.78" cy="162.882" r="251.897" transform="rotate(-20.6043 1879.78 162.882)"
+            fill="#E546FF" />
+        <circle cx="1921.64" cy="549.433" r="251.897" transform="rotate(-20.6043 1921.64 549.433)"
+            fill="#9867FF" />
+        <ellipse opacity="0.1" cx="285.155" cy="341" rx="285.155" ry="341"
+            transform="matrix(0.902295 0.43112 0.283672 -0.958921 315 970.985)" fill="#46A6FF" />
+        <ellipse opacity="0.1" cx="285.155" cy="341" rx="285.155" ry="341"
+            transform="matrix(0.902295 0.43112 0.283672 -0.958921 785 857.985)" fill="#E546FF" />
+        <ellipse opacity="0.18" cx="285.155" cy="341" rx="285.155" ry="341"
+            transform="matrix(0.902295 0.43112 0.283672 -0.958921 1232 1089.99)" fill="#E546FF" />
+        <ellipse opacity="0.2" cx="285.155" cy="341" rx="285.155" ry="341"
+            transform="matrix(0.902295 0.43112 0.283672 -0.958921 562 293.985)" fill="#9867FF" />
+        <ellipse opacity="0.15" cx="285.155" cy="341" rx="285.155" ry="341"
+            transform="matrix(0.902295 0.43112 0.283672 -0.958921 -77 203.985)" fill="#E546FF" />
+    </g>
+    <defs>
+        <filter id="filter0_f_1_20" x="-702.845" y="-799.504" width="3326.45" height="2626.92" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="fix_background" />
+            <feBlend mode="normal" in="SourceGraphic" in2="fix_background" result="shape" />
+            <feGaussianBlur stdDeviation="100" result="blur" />
+            <feGaussianBlur stdDeviation="100" result="blur" />
+            <feGaussianBlur stdDeviation="50" result="blur" />
+            
+            <!-- Generate noise -->
+            <feTurbulence type="turbulence" baseFrequency="0.99" result="turbulence"/>
+            
+            <!-- Convert the noise to black and white -->
+            <feColorMatrix in="turbulence" type="matrix" result="blackAndWhite" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/>
+            
+            <!-- Adjust the opacity of the noise -->
+            <feComponentTransfer in="blackAndWhite" result="changedOpacity">
+                <feFuncA type="linear" slope="0.3"/>
+            </feComponentTransfer>
+
+            <feComposite in2="blur" in="changedOpacity" operator="over" result="grainyGradient"/>
+
+            <feFlood flood-color="#2C2F33" flood-opacity="0.3" result="colorOverlay"/>
+
+            <feComposite in2="grainyGradient" in="colorOverlay"/>
+        </filter>
+    </defs>
+</svg>

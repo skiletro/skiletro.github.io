@@ -1,0 +1,32 @@
+{{ if and (eq .Section "posts") (eq .Kind "page") }}
+<section>
+    <h1>Metadata</h1>
+    <h2>Author</h2>
+    <p rel="author">
+        Skiletro
+    </p>
+    <h2>Date</h2>
+    <p>
+        <time pubdate datetime="{{ .Date | time.Format "2006-01-02T15:04:05-07:00" }}">{{ .Date | time.Format ":date_long" }}</time>
+    </p>
+</section>
+{{ else }}
+<section>
+    <h1>Other Links</h1>
+    <ul>
+    {{ range $item := .Site.Params.socialLinks }}
+        <li><a href="{{ $item.url }}">{{ $item.title }}</a></li>
+    {{ end }}
+    </ul>
+</section>
+<section class="buttons">
+    <div class="center">
+        {{ partial "88x31.html" . }}
+    </div>
+</section>
+<section class="mybutton">
+    <h1>My Button</h1>
+    <img src="{{ "buttons/skiletrobutton1.png" | absURL }}" width=88 height=31 loading="lazy">
+    <textarea onclick="this.select()" readonly><a href="https://skiletro.com/"><img src="{{ "buttons/skiletrobutton1.png" | absURL }}" loading="lazy"></a></textarea>
+</section>
+{{ end }}

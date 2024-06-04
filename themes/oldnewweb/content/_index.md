@@ -1,0 +1,8 @@
++++
+title = 'Home'
+date = 2023-01-01T08:00:00-07:00
+draft = false
++++
+
+# No Home Page Created
+Go ahead and create a main page by creating a file in `content/_index.md`
