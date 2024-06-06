@@ -13,3 +13,6 @@ A website using Hugo with a custom theme, inspired by the old web with hints of 
 
 ## How can I host this myself?
 I'd rather you didn't since it's my personal site, but feel free to take and do whatever you want with the theme!
+
+## Todo
+- [ ] Move away from Google Fonts once I can find a replacement on par in terms of performance

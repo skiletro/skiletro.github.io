@@ -1,8 +1,3 @@
-@font-face {
-    font-family: MPLUS1CODE;
-    src: url("../font.ttf");
-}
-
 :root {
     --background-color: oklch(22.49% 0.008 297.21 / 95%);
     --foreground-color: oklch(98.51% 0 0);
@@ -84,7 +79,7 @@ code {
     background-color: color-mix(in oklab, black 25%, var(--background-color));
     color: color-mix(in oklab, black 10%, var(--foreground-color));
     padding: 0px 5px;
-    font-family: MPLUS1CODE, monospace;
+    font-family: "M PLUS Code Latin", monospace;
 }
 
 body {
@@ -101,7 +96,7 @@ body {
     gap: var(--gap);
 
     color: var(--foreground-color);
-    font-family: MPLUS1CODE, monospace;
+    font-family: "M PLUS Code Latin", monospace;
 }
 
 nav {
