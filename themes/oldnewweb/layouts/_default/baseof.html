@@ -4,17 +4,17 @@
   {{ partial "head.html" . }}
 </head>
 <body>
-  {{ partial "navbar.html" . }}
-  <div id="content">
+  <div id="grid">
+    {{ partial "navbar.html" . }}
     <main>
       {{ block "main" . }}{{ end }}
     </main>
     <aside>
       {{ partial "sidebar.html" . }}
     </aside>
+    <footer>
+      {{ partial "footer.html" . }}
+    </footer>
   </div>
-  <footer>
-    {{ partial "footer.html" . }}
-  </footer>
 </body>
 </html>
