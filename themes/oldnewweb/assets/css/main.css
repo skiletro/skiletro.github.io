@@ -233,6 +233,10 @@ a:link, a:visited {
         width: 88px;
         height: 31px;
     }
+    
+    & .blank {
+        opacity: 0.1;
+    }
 }
 
 .mybutton {
@@ -254,6 +258,13 @@ a:link, a:visited {
         display: block;
         margin: 0 auto;
         margin-top: 5px;
+    }
+
+    & p {
+        padding: 5px;
+        font-size: 12px;
+        text-align: center;
+        opacity: 0.5;
     }
 }
 

@@ -8,6 +8,10 @@ theme = "oldnewweb"
 sectionPagesMenu = "main"
 
 [[params.socialLinks]]
+title = "Fediverse"
+url = "https://wetdry.world/@jamie"
+
+[[params.socialLinks]]
 title = "GitHub"
 url = "https://github.com/skiletro"
 
@@ -24,20 +28,19 @@ title = "Steam"
 url = "https://steamcommunity.com/id/skiletro"
 
 [[params.socialLinks]]
-title = "matrix"
+title = "Matrix"
 url = "https://matrix.to/#/@jvmi:matrix.org"
 
-
-[menu]
 [[menu.main]]
 identifier = "home"
 name = "Home"
 url = "/"
 weight = 10
+
 [[menu.main]]
 identifier = "playlists"
 name = "Playlists"
 url = "/playlists/"
 weight = 11
 
-markup.highlight.noClasses=false
+markup.highlight.noClasses = false

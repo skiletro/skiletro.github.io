@@ -1,5 +1,5 @@
 # Hi, I'm jamie! Welcome to my website!
-Going by Jamie, Skiletro, or just Skil, I use they/them pronouns.
+I also go by Skiletro, or just simply Skil, and use they/them pronouns.
 
 Inspired by the philosophies of the old web while also introducing elements from newer websites, this website is written using [Hugo](https://gohugo.io/) with the source code being publically available on [GitHub](https://github.com/skiletro/skiletro.github.io).
 The website was finally finished on the 4th of June, 2024.

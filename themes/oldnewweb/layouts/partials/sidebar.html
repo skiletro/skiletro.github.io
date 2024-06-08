@@ -15,7 +15,7 @@
     <h1>Other Links</h1>
     <ul>
     {{ range $item := .Site.Params.socialLinks }}
-        <li><a href="{{ $item.url }}">{{ $item.title }}</a></li>
+        <li><a rel="me" href="{{ $item.url }}">{{ $item.title }}</a></li>
     {{ end }}
     </ul>
 </section>
@@ -28,5 +28,6 @@
     <h1>My Button</h1>
     <img src="{{ "buttons/skiletrobutton1.png" | absURL }}" width=88 height=31 loading="lazy" alt="'Skiletro' badge">
     <textarea onclick="this.select()" readonly aria-label="Box containing the HTML code for the 'Skiletro' badge, and a link to this website"><a href="https://skiletro.com/"><img src="{{ "buttons/skiletrobutton1.png" | absURL }}" loading="lazy"></a></textarea>
+    <p>Please let me know if you use my button on your website! I'd love to check it out!</p>
 </section>
 {{ end }}
