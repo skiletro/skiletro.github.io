@@ -100,12 +100,16 @@ footer {
 }
 
 /* Tag Styling */
-h1, h2 {
+h1 {
     font-size: 20px;
 }
 
-h3, h4, h5, p, a, span {
+h2, h3, h4, h5, p, a, span {
     font-size: 16px;
+}
+
+h2, h3, h4, h5 {
+    padding-top: 16px;
 }
 
 h1::before {
@@ -143,10 +147,6 @@ h1, h2, h3, h4, h5, p {
     font-weight: inherit;
     margin: 0;
     padding-bottom: 4px;
-}
-
-p {
-    padding-bottom: 12px;
 }
 
 a, span {
@@ -199,7 +199,7 @@ figure {
         color: color-mix(in oklab, black, var(--foreground-color) 90%);
 
         &:before {
-            content: "Figure "counter(figure) ".";
+            content: "Figure " counter(figure) ". ";
             color: oklch(82.67% 0.087 150);
             opacity: 0.75;
         }
