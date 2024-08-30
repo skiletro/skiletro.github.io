@@ -19,6 +19,23 @@
     {{ end }}
     </ul>
 </section>
+<section>
+    <h1>Bored?</h1>
+    <p>
+        <a href="#" onclick="
+            fetch({{ "funlinks.txt" | absURL }})
+            .then(res => res.text())
+            .then(text => {
+                const lines = text.split('\n').filter(Boolean);
+                const randomLine = lines[Math.floor(Math.random() * lines.length)];
+                window.location.href = randomLine;
+            })
+            .catch(console.error);">
+            Click here
+        </a>
+        for a random article or link that I saw on the internet and found interesting.
+    </p>
+</section>
 <section class="buttons">
     <div>
         {{ partial "88x31.html" . }}
