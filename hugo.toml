@@ -31,6 +31,10 @@ url = "https://steamcommunity.com/id/skiletro"
 title = "Matrix"
 url = "https://matrix.to/#/@jvmi:matrix.org"
 
+[[params.socialLinks]]
+title = "RSS"
+url = "/posts/index.xml"
+
 [[menu.main]]
 identifier = "home"
 name = "Home"
