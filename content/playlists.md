@@ -1,11 +1,9 @@
 +++
-title = "playlists"
-description = "here be the playlists page"
+title = "Playlists"
 +++
 
 ## Consider yourself drunk
 {{<playlist src="https://open.spotify.com/playlist/7iIEBEu2fy3EO3N6NqO1aY" img="https://i.scdn.co/image/ab67706c0000bebbcd4fc31e9428d0fd768b5192" desc="a chill dnb-ish playlist">}}
-
 
 ## Lofi Refined
 {{<playlist src="https://open.spotify.com/playlist/4mMjbHWBUIkM7xvXNkumM6" img="https://i.scdn.co/image/ab67706c0000bebbac86dba0d9d11f29d279e91c" desc="a smaller set of lofi songs, more carefully picked">}}
