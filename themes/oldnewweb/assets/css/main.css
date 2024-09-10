@@ -14,11 +14,6 @@
 /* ------ Building Blocks */
 body {
     background-color: var(--background-color);
-    background-image: url("../background.svg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center; 
-    background-size: cover;
     color: var(--foreground-color);
     font-family: "M PLUS Code Latin", monospace;
     
@@ -27,11 +22,38 @@ body {
     align-items: center;
 }
 
-#grid {
-    display: grid;
-    width: var(--page-width);
-    grid-template-columns: 1fr 225px;
-    gap: var(--gap);
+@media (min-width: 320px) and (max-width: 480px) {
+    body {
+        background-image: url("../background-vertical.webp");
+        background-size: auto;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+
+    #grid {
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap);
+    }
+}
+
+@media (min-width: 481px) {
+    body {        
+        background-image: url("../background.webp");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center; 
+        background-size: cover;
+    }
+
+    #grid {
+        display: grid;
+        width: var(--page-width);
+        grid-template-columns: 1fr 225px;
+        gap: var(--gap);
+        margin-top: 80px;
+        margin-bottom: 45px;
+    }
 }
 
 section, nav, footer {
@@ -48,7 +70,6 @@ nav {
     align-items: center;
     justify-content: space-between;
     padding: 0px 30px;
-    margin-top: 80px;
 
     grid-column: span 2;
     height: 80px;
@@ -96,7 +117,6 @@ footer {
     grid-column: span 2;
     height: 40px;
     color: color-mix(in oklab, var(--background-color), var(--foreground-color));
-    margin-bottom: 45px;
 }
 
 /* Tag Styling */
