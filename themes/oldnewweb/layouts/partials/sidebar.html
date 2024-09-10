@@ -23,7 +23,7 @@
     <h1>Bored?</h1>
     <p>
         <a href="#" onclick="
-            fetch({{ "funlinks.txt" | absURL }})
+            fetch({{ "funlinks.txt" | relURL }})
             .then(res => res.text())
             .then(text => {
                 const lines = text.split('\n').filter(Boolean);
@@ -33,7 +33,7 @@
             .catch(console.error);">
             Click here
         </a>
-        for a random article or link that I saw on the internet and found interesting.
+        &nbsp;for a random article or link that I saw on the internet and found interesting.
     </p>
 </section>
 <section class="buttons">
