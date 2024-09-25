@@ -22,6 +22,10 @@ body {
     align-items: center;
 }
 
+img {
+    max-width: 100%;
+}
+
 @media (min-width: 320px) and (max-width: 480px) {
     body {
         background-image: url("../background-vertical.webp");
