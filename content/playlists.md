@@ -12,7 +12,7 @@ title = "Playlists"
 {{<playlist src="https://open.spotify.com/playlist/53G9wAEwl7c4ulPH2VsKNx" img="https://i.scdn.co/image/ab67706c0000bebb37d20f6170a2c883bd4e839f" desc="mix of chiller dnb and stuff like that">}}
 
 ## pills
-{{<playlist src="https://open.spotify.com/playlist/7qKp0piqkOPEpRwGTN6ckO" img="https://i2o.scdn.co/image/ab67706c0000cfa38bfa12b132704e6fb5acad07" desc="dnb, jumpup, all that good shit">}}
+{{<playlist src="https://open.spotify.com/playlist/7qKp0piqkOPEpRwGTN6ckO" img="https://i2o.scdn.co/image/ab67706c0000cfa38bfa12b132704e6fb5acad07" desc="dnb, jumpup, all that good stuff">}}
 
 ## More Playlists
 More playlists can be found on my [Spotify profile](https://open.spotify.com/user/skiletro)! I try and add new songs to my playlists as much as I can, and I'm always creating new playlists too!

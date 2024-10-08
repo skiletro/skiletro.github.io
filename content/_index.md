@@ -1,11 +1,11 @@
-# Hi, I'm jamie! Welcome to my website!
+# Hi, I'm Jamie! Welcome to my website!
 I also go by Skiletro, or just simply Skil, and use they/them pronouns.
 
 Inspired by the philosophies of the old web while also introducing elements from newer websites, this website is written using [Hugo](https://gohugo.io/) with the source code being publically available on [GitHub](https://github.com/skiletro/skiletro.github.io).
 The website was finally finished on the 4th of June, 2024.
 
 I'm interested in a whole range of different things; most of which have some sort of connection to technology and the likes.
-[Mechanical keyboards](https://github.com/skiletro/vial-qmk/), and [linux ricing](https://github.com/skiletro/nixfiles) are some of my current interests, alongside esports, and just overall just pissing about with things that are *cool*.
+[Mechanical keyboards](https://github.com/skiletro/vial-qmk/), and [linux ricing](https://github.com/skiletro/nixfiles) are some of my current interests, alongside esports, and just overall just messing about with things that are *cool*.
 
 ## Projects
 - [nixfiles](https://github.com/skiletro/nixfiles) ... A Nix flake containing all of my system configuration. I've put a lot of effort into making it look good too.
