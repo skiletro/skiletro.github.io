@@ -16,5 +16,5 @@ A website using Hugo with a custom theme, inspired by the old web with hints of 
 I'd rather you didn't since it's my personal site, but feel free to take and do whatever you want with the theme!
 
 ## Todo
-- [ ] Improve background svg performance on Firefox - when zooming in and out, there is significant slowdown after testing
+- [ ] Convert build system to use the Nix flake
 - [ ] Move away from Google Fonts once I can find a replacement on par in terms of performance - while CloudFlare does override them with their own magic so no calls are necessarily being made to Google, I'd still rather not have to use it
