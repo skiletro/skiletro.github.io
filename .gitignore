@@ -1,0 +1,7 @@
+.direnv/
+result
+result/
+_cache
+_site
+dist
+dist-newstyle
