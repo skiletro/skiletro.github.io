@@ -25,6 +25,7 @@ main = hakyll $ do
         route $ setExtension "html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/post.html"    postCtx
+            >>= saveSnapshot "content"
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= relativizeUrls
 
@@ -42,6 +43,21 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
                 >>= relativizeUrls
 
+    create ["atom.xml"] $ do
+        route idRoute
+        compile $ do
+            let feedCtx = postCtx `mappend` bodyField "description"
+            posts <- fmap (take 10) . recentFirst =<<
+                loadAllSnapshots "posts/*" "content"
+            renderAtom feedConfiguration feedCtx posts
+
+    create ["rss.xml"] $ do
+        route idRoute
+        compile $ do
+            let feedCtx = postCtx `mappend` bodyField "description"
+            posts <- fmap (take 10) . recentFirst =<<
+                loadAllSnapshots "posts/*" "content"
+            renderRss feedConfiguration feedCtx posts
 
     match "index.html" $ do
         route idRoute
@@ -60,6 +76,15 @@ main = hakyll $ do
 
 
 --------------------------------------------------------------------------------
+feedConfiguration :: FeedConfiguration
+feedConfiguration = FeedConfiguration
+    { feedTitle       = "Posts on Skiletro.com"
+    , feedDescription = "Recent posts from Skiletro.com"
+    , feedAuthorName  = "Skiletro"
+    , feedAuthorEmail = "19377854+skiletro@users.noreply.github.com" -- you're not getting my email that easily
+    , feedRoot        = "https://skiletro.com"
+    }
+
 postCtx :: Context String
 postCtx =
     dateField "date" "%B %e, %Y" `mappend`
