@@ -1,0 +1,23 @@
+---
+title: Test Page
+---
+
+Lorem Ipsum
+
+## Sub-heading
+
+Here are some code blocks!
+
+```haskell
+fac n = foldr (*) 1 [1..n]
+```
+
+...and here is some Nix in a codeblock!
+
+```nix
+let
+  a = 1;
+in {
+  b = a * 2;
+}
+````

@@ -1,161 +1,148 @@
-html {
-  font-size: 62.5%;
+@import "https://fonts.googleapis.com/css2?family=M+PLUS+2:wght@100..900&display=swap";
+
+$background-color: oklch(22.49% 0.008 297.21);
+$foreground-color: oklch(98.51% 0 0);
+$primary-color: oklch(82.67% 0.096 307.5);
+$secondary-color: oklch(from $primary-color l c 240);
+
+:root {
+  font-size: 20px;
+}
+
+* {
+  box-sizing: border-box;
+  transition: 0.1s ease-in-out;
+  /* outline: 1px solid rgba(255, 0, 0, 0.2); */
 }
 
 body {
-  font-size: 1.6rem;
-  color: #000;
+  display: flex;
+  flex-direction: column;
+  font-family: "M PLUS 2", sans-serif;
+  align-items: center;
+  $opacity: 25%;
+  background-color: black;
+  background: $background-color
+    linear-gradient(
+      135deg,
+      oklch(from $primary-color l c h / $opacity),
+      oklch(from $secondary-color l c h / $opacity) 100%
+    );
+  color: white;
+  color: $foreground-color;
+  padding: 4rem 0 0 0;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
-header {
-  border-bottom: 0.2rem solid #000;
-}
+content {
+  display: flex;
+  max-width: 60rem;
+  flex-direction: row-reverse;
 
-nav {
-  text-align: right;
-}
+  & > * {
+    background-color: $background-color;
+    outline: 0.1rem solid $background-color;
+    outline-offset: 0.1rem;
+  }
 
-nav a {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: black;
-  text-decoration: none;
-  text-transform: uppercase;
+  & > nav {
+    padding: 1.25rem 0.75rem;
+  }
+
+  & > article {
+    width: 100vw;
+    padding: 1.25rem;
+  }
 }
 
 footer {
-  margin-top: 3rem;
-  padding: 1.2rem 0;
-  border-top: 0.2rem solid #000;
-  font-size: 1.2rem;
-  color: #555;
-}
+  position: fixed;
+  bottom: 0px;
+  color: $background-color;
+  opacity: 0.7;
+  font-size: 0.75rem;
+  padding: 0.5rem;
+  width: 100%;
+  text-align: right;
 
-h1 {
-  font-size: 2.4rem;
-}
-
-h2 {
-  font-size: 2rem;
-}
-
-article .header {
-  font-size: 1.4rem;
-  font-style: italic;
-  /* color: #555; */
-  $myColor: red;
-  color: $myColor;
-}
-
-.logo a {
-  font-weight: bold;
-  color: #000;
-  text-decoration: none;
-}
-
-@media (max-width: 319px) {
-  body {
-    width: 90%;
-    margin: 0;
-    padding: 0 5%;
-  }
-
-  header {
-    margin: 4.2rem 0;
-  }
-
-  nav {
-    margin: 0 auto 3rem;
-    text-align: center;
-  }
-
-  footer {
-    text-align: center;
-  }
-
-  .logo {
-    text-align: center;
-    margin: 1rem auto 3rem;
-  }
-
-  .logo a {
-    font-size: 2.4rem;
-  }
-
-  nav a {
-    display: block;
-    line-height: 1.6;
-  }
-}
-
-@media (min-width: 320px) {
-  body {
-    width: 90%;
-    margin: 0;
-    padding: 0 5%;
-  }
-
-  header {
-    margin: 4.2rem 0;
-  }
-
-  nav {
-    margin: 0 auto 3rem;
-    text-align: center;
-  }
-
-  footer {
-    text-align: center;
-  }
-
-  .logo {
-    text-align: center;
-    margin: 1rem auto 3rem;
-  }
-
-  .logo a {
-    font-size: 2.4rem;
-  }
-
-  nav a {
-    display: inline;
-    margin: 0 0.6rem;
-  }
-}
-
-@media (min-width: 640px) {
-  body {
-    width: 60rem;
-    margin: 0 auto;
+  p {
     padding: 0;
-  }
-
-  header {
-    margin: 0 0 3rem;
-    padding: 1.2rem 0;
-  }
-
-  nav {
     margin: 0;
-    text-align: right;
   }
 
-  nav a {
-    margin: 0 0 0 1.2rem;
-    display: inline;
+  a {
+    color: inherit;
+  }
+}
+
+/* --- NAVIGATION BAR --- */
+/* This whole navbar section needs refactoring, because I'm already confused by it */
+nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-left: 1rem;
+  height: fit-content;
+
+  svg {
+    fill: $foreground-color;
+    $size: 2rem;
+    width: $size;
+    height: $size;
   }
 
-  footer {
-    text-align: right;
+  a {
+    display: flex;
+    writing-mode: vertical-rl;
+    text-orientation: sideways;
+    text-decoration: none;
+    justify-content: center;
+    color: $foreground-color;
   }
 
-  .logo {
-    margin: 0;
-    text-align: left;
+  span {
+    color: oklch(from $foreground-color 0.45 c h);
   }
+}
 
-  .logo a {
-    float: left;
-    font-size: 1.8rem;
+/* --- STANDARD ELEMENTS --- */
+a {
+  color: mediumpurple;
+  color: $primary-color;
+
+  &:hover {
+    filter: brightness(0.75);
+  }
+}
+
+@mixin std-style {
+  display: block;
+  margin: 0;
+  padding-bottom: 0.2rem;
+}
+
+p,
+ul {
+  @include std-style;
+}
+
+@for $i from 1 through 6 {
+  h#{$i} {
+    @include std-style;
+
+    &:before {
+      $stars: "";
+
+      @for $_ from 1 through $i {
+        $stars: $stars + "*";
+      }
+
+      content: "#{$stars} ";
+      color: oklch(82.67% 0.087 #{280 + ($i - 1) * 20});
+      opacity: 0.75;
+    }
   }
 }
