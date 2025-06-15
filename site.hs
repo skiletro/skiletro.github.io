@@ -1,9 +1,9 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 
-import Data.Monoid (mappend)
-import Hakyll
-import Hakyll.Web.Sass (sassCompiler)
+import           Data.Monoid     (mappend)
+import           Hakyll
+import           Hakyll.Web.Sass (sassCompiler)
 
 --------------------------------------------------------------------------------
 main :: IO ()
