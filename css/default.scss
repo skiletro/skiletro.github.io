@@ -125,14 +125,32 @@ a {
   padding-bottom: 0.2rem;
 }
 
-p,
-ul {
+p {
   @include std-style;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  & > li:before {
+    content: "-";
+    color: oklch(82.67% 0.087 180);
+    padding-left: 0.5rem;
+    padding-right: 0.25rem;
+  }
+}
+
+h1 {
+  font-size: 1.25rem;
 }
 
 @for $i from 1 through 6 {
   h#{$i} {
     @include std-style;
+    padding-top: 0.5rem;
+    font-size: 1rem;
 
     &:before {
       $stars: "";
