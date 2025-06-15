@@ -21,7 +21,7 @@ main = hakyll $ do
     let compressCssItem = fmap compressCss
     compile (compressCssItem <$> sassCompiler)
 
-  match (fromList ["about.rst", "contact.markdown"]) $ do
+  match (fromList ["about.rst", "contact.markdown", "404.html"]) $ do
     route $ setExtension "html"
     compile $
       pandocCompiler
