@@ -1,4 +1,5 @@
 .direnv/
+.sass-cache/
 result
 result/
 _cache

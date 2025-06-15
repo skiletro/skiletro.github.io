@@ -25,7 +25,7 @@
             tools = hp: {inherit (hp) hakyll;};
             hlsCheck.enable = true;
             mkShellArgs = {
-              buildInputs = [pkgs.just];
+              buildInputs = with pkgs; [just sass];
               shellHook = "just -l -u";
             };
           };
