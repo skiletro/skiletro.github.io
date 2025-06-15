@@ -92,6 +92,10 @@ content {
     padding: 1.25rem;
     height: fit-content;
   }
+
+  @include for-phone-only {
+    flex-direction: column;
+  }
 }
 
 footer {
@@ -143,6 +147,26 @@ nav {
 
   span {
     color: oklch(from $foreground-color 0.45 c h);
+  }
+
+  @include for-phone-only {
+    margin: 0;
+    margin-bottom: 0.75rem;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    a {
+      writing-mode: horizontal-tb;
+
+      &:first-child {
+        margin-right: auto;
+      }
+    }
+
+    span {
+      display: none;
+    }
   }
 }
 
