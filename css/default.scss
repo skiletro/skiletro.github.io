@@ -52,13 +52,14 @@ body {
   align-items: center;
   $opacity: 25%;
   background-color: black;
+  /* prettier-ignore */
   background-image:
     url("/images/noise.png"),
-    linear-gradient(
-      135deg,
-      oklch(from $primary-color l c h / $opacity),
-      oklch(from $secondary-color l c h / $opacity) 100%
-    );
+    radial-gradient(circle at center center, oklch(22.49% 0.008 297.21), transparent),
+    radial-gradient(circle at bottom left, #27577D, transparent),
+    radial-gradient(circle at top right, #952EA4 0%, transparent),
+    radial-gradient(circle at center right, #6949A5 0%, transparent),
+    radial-gradient(circle at top center, #336BA0 0%, transparent);
   background-attachment: fixed;
   color: white;
   color: $foreground-color;
