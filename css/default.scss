@@ -118,6 +118,10 @@ footer {
   a {
     color: inherit;
   }
+
+  @include for-phone-only {
+    display: none;
+  }
 }
 
 /* --- NAVIGATION BAR --- */
