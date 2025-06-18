@@ -227,6 +227,10 @@ h1 {
   }
 }
 
+img {
+  user-select: none;
+  pointer-events: none;
+}
 
 code {
   font-family: "M PLUS 1 Code", monospace;
