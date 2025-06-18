@@ -145,10 +145,6 @@ nav {
     color: $foreground-color;
   }
 
-  span {
-    color: oklch(from $foreground-color 0.45 c h);
-  }
-
   @include for-phone-only {
     margin: 0;
     margin-bottom: 0.75rem;
@@ -224,4 +220,9 @@ h1 {
       opacity: 0.75;
     }
   }
+}
+
+hr {
+  color: oklch(from $foreground-color 0.45 c h);
+  width: 55%;
 }
