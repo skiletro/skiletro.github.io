@@ -1,4 +1,4 @@
-@import "https://fonts.googleapis.com/css2?family=M+PLUS+2:wght@100..900&display=swap";
+@import "https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@100..700&family=M+PLUS+2:wght@100..900&display=swap";
 
 @mixin for-phone-only {
   @media (max-width: 599px) {
@@ -221,6 +221,11 @@ h1 {
       opacity: 0.75;
     }
   }
+}
+
+
+code {
+  font-family: "M PLUS 1 Code", monospace;
 }
 
 hr {
