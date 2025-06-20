@@ -1,19 +1,7 @@
 @import "https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@100..700&family=M+PLUS+2:wght@100..900&display=swap";
 
 @mixin for-phone-only {
-  @media (max-width: 599px) {
-    @content;
-  }
-}
-
-@mixin for-tablet-portrait-up {
-  @media (min-width: 600px) {
-    @content;
-  }
-}
-
-@mixin for-tablet-landscape-up {
-  @media (min-width: 900px) {
+  @media (max-width: 499px) {
     @content;
   }
 }
@@ -24,19 +12,13 @@
   }
 }
 
-@mixin for-big-desktop-up {
-  @media (min-width: 1800px) {
-    @content;
-  }
-}
-
 $background-color: oklch(22.49% 0.008 297.21);
 $foreground-color: oklch(98.51% 0 0);
 $primary-color: oklch(82.67% 0.096 307.5);
 $secondary-color: oklch(from $primary-color l c 240);
 
 :root {
-  font-size: 20px;
+  font-size: 16px;
 }
 
 * {
@@ -66,6 +48,10 @@ body {
   padding: 4rem 1rem 1rem 1rem;
   margin: 0;
 
+  // Stops central content from shifting around when&if a scrollbar appears
+  width: 100vw;
+  overflow-x: hidden;
+
   @include for-phone-only {
     padding: 0.25rem;
     flex-direction: row;
@@ -80,8 +66,12 @@ content {
 
   & > * {
     background-color: $background-color;
-    outline: 0.1rem solid $background-color;
-    outline-offset: 0.1rem;
+    outline: 2px solid $background-color;
+    outline-offset: 2px;
+
+    @include for-phone-only {
+      outline: 0px;
+    }
   }
 
   & > nav {
@@ -103,7 +93,7 @@ footer {
   position: fixed;
   bottom: 0px;
   opacity: 0.7;
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   padding: 0.5rem;
   width: 100%;
   text-align: right;
@@ -128,6 +118,8 @@ footer {
 // This whole navbar section needs refactoring, because I'm already confused by it
 nav {
   display: flex;
+  position: sticky;
+  top: 4rem;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
@@ -150,12 +142,18 @@ nav {
     color: $foreground-color;
   }
 
+  hr {
+    width: 100%;
+  }
+
   @include for-phone-only {
+    // TODO: i absolutely hate this: it feels extremely hacky.
+    top: 0.25rem;
+    margin-bottom: 0.4rem !important;
+    // end
+    z-index: 1;
     margin: 0;
-    margin-bottom: 0.75rem;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
 
     a {
       writing-mode: horizontal-tb;
@@ -166,6 +164,14 @@ nav {
     }
 
     span {
+      display: none;
+    }
+
+    hr {
+      display: none;
+    }
+
+    img {
       display: none;
     }
   }
@@ -234,11 +240,27 @@ img {
 
 code {
   font-family: "M PLUS 1 Code", monospace;
+
+  @include for-phone-only {
+    word-break: break-all;
+  }
+}
+
+div.sourceCode {
+  padding: 1rem;
+}
+
+div.sourceCode,
+code {
+  background-color: oklch(from $background-color calc(l - 0.05) c h);
 }
 
 hr {
-  color: oklch(from $foreground-color 0.45 c h);
-  width: 55%;
+  $color: oklch(from $foreground-color 0.45 c h);
+  // Not a single platform can decide which way to set the color of a `hr`.
+  background-color: $color;
+  color: $color;
+  border-color: $color;
 }
 
 .playlist {
