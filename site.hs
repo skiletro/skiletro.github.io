@@ -1,9 +1,12 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 
-import           Data.Monoid     (mappend)
+import           Data.List             (isInfixOf, sortBy)
+import           Data.Monoid           (mappend)
 import           Hakyll
-import           Hakyll.Web.Sass (sassCompiler)
+import           Hakyll.Web.Sass       (sassCompiler)
+import           System.FilePath.Posix (splitFileName, takeBaseName,
+                                        takeDirectory, (</>))
 
 --------------------------------------------------------------------------------
 main :: IO ()
@@ -21,24 +24,34 @@ main = hakyll $ do
     let compressCssItem = fmap compressCss
     compile (compressCssItem <$> sassCompiler)
 
-  match (fromList ["playlists.html", "404.html"]) $ do
-    route $ setExtension "html"
+  match "404.html" $ do
+    route idRoute
     compile $
       pandocCompiler
         >>= loadAndApplyTemplate "templates/default.html" defaultContext
         >>= relativizeUrls
+        >>= removeIndexHtml
+
+  match "pages/*.html" $ do
+    route prettyRoute
+    compile $
+      pandocCompiler
+        >>= loadAndApplyTemplate "templates/default.html" defaultContext
+        >>= relativizeUrls
+        >>= removeIndexHtml
 
   match "posts/*" $ do
-    route $ setExtension "html"
+    route prettyRoute
     compile $
       pandocCompiler
         >>= loadAndApplyTemplate "templates/post.html" postCtx
         >>= saveSnapshot "content"
         >>= loadAndApplyTemplate "templates/default.html" postCtx
         >>= relativizeUrls
+        >>= removeIndexHtml
 
   create ["archive.html"] $ do
-    route idRoute
+    route prettyRoute
     compile $ do
       posts <- recentFirst =<< loadAll "posts/*"
       let archiveCtx =
@@ -50,6 +63,7 @@ main = hakyll $ do
         >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
         >>= loadAndApplyTemplate "templates/default.html" archiveCtx
         >>= relativizeUrls
+        >>= removeIndexHtml
 
   create ["atom.xml"] $ do
     route idRoute
@@ -81,6 +95,7 @@ main = hakyll $ do
         >>= applyAsTemplate indexCtx
         >>= loadAndApplyTemplate "templates/default.html" indexCtx
         >>= relativizeUrls
+        >>= removeIndexHtml
 
   match "templates/*" $ compile templateBodyCompiler
 
@@ -95,11 +110,37 @@ feedConfiguration =
       feedRoot = "https://skiletro.com"
     }
 
+--------------------------------------------------------------------------------
+
+prettyRoute :: Routes
+prettyRoute = customRoute createIndexRoute
+  where
+    createIndexRoute ident =
+      takeDirectory p </> takeBaseName p </> "index.html"
+      where
+        p = toFilePath ident
+
+removeIndexHtml :: Item String -> Compiler (Item String)
+removeIndexHtml item = return $ fmap (withUrls removeIndexStr) item
+  where
+    removeIndexStr :: String -> String
+    removeIndexStr url = case splitFileName url of
+      (dir, "index.html") | isLocal dir -> dir
+      _                                 -> url
+      where
+        isLocal uri = not (isInfixOf "://" uri)
+
+--------------------------------------------------------------------------------
+
 postCtx :: Context String
-postCtx = hDateCtx <> cDateCtx <> defaultContext
+postCtx = hDateCtx <> cDateCtx <> modifiedCtx <> defaultContext
 
 hDateCtx :: Context String
 hDateCtx = dateField "hdate" "%B %e, %Y"
 
 cDateCtx :: Context String
 cDateCtx = dateField "cdate" "%Y-%m-%d"
+
+modifiedCtx :: Context String
+modifiedCtx = modificationTimeField "modified" "%B %e, %Y"
+--------------------------------------------------------------------------------
