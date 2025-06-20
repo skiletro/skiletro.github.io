@@ -42,7 +42,7 @@ $secondary-color: oklch(from $primary-color l c 240);
 * {
   box-sizing: border-box;
   transition: 0.1s ease-in-out;
-  /* outline: 1px solid rgba(255, 0, 0, 0.2); */
+  // outline: 1px solid rgba(255, 0, 0, 0.2);
 }
 
 body {
@@ -52,7 +52,7 @@ body {
   align-items: center;
   $opacity: 25%;
   background-color: black;
-  /* prettier-ignore */
+  // prettier-ignore
   background-image:
     url("/images/noise.png"),
     radial-gradient(circle at center center, oklch(22.49% 0.008 297.21), transparent),
@@ -124,8 +124,8 @@ footer {
   }
 }
 
-/* --- NAVIGATION BAR --- */
-/* This whole navbar section needs refactoring, because I'm already confused by it */
+// --- NAVIGATION BAR ---
+// This whole navbar section needs refactoring, because I'm already confused by it
 nav {
   display: flex;
   flex-direction: column;
@@ -171,7 +171,7 @@ nav {
   }
 }
 
-/* --- STANDARD ELEMENTS --- */
+// --- STANDARD ELEMENTS ---
 a {
   color: mediumpurple;
   color: $primary-color;
