@@ -2,19 +2,16 @@
 default:
     @just --list --unsorted
 
-run *args:
+[private]
+pre:
     nix fmt
     git add .
-    nix build .#
-    ./result/bin/site {{ args }}
+    nix build .# --print-build-logs
+
+run *args: pre
+    nix run .# {{ args }}
 
 watch: (run "watch")
 
 # Build and watch
-baw:
-    nix fmt
-    git add .
-    nix build .#
-    ./result/bin/site clean
-    ./result/bin/site build
-    ./result/bin/site watch
+baw: pre (run "clean") (run "watch")
