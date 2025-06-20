@@ -1,6 +1,7 @@
-<article>
-  <section class="header">
-    Posted on $date$ $if(author)$ by $author$ $endif$
-  </section>
-  <section>$body$</section>
-</article>
+<address class="author">
+  Posted on <time pubdate datetime="$cdate$" title="$hdate$">$hdate$</time> By
+  <a rel="author" href="/">Skiletro</a>
+</address>
+<!-- prettier-ignore -->
+<hr />
+$body$

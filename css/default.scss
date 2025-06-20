@@ -240,3 +240,10 @@ hr {
   color: oklch(from $foreground-color 0.45 c h);
   width: 55%;
 }
+
+.playlist {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}

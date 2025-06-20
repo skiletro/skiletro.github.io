@@ -13,7 +13,7 @@ main = hakyll $ do
     compile copyFileCompiler
 
   match "css/*.css" $ do
-    route   idRoute
+    route idRoute
     compile compressCssCompiler
 
   match "css/*.scss" $ do
@@ -21,7 +21,7 @@ main = hakyll $ do
     let compressCssItem = fmap compressCss
     compile (compressCssItem <$> sassCompiler)
 
-  match (fromList ["about.rst", "contact.markdown", "404.html"]) $ do
+  match (fromList ["playlists.html", "404.html"]) $ do
     route $ setExtension "html"
     compile $
       pandocCompiler
@@ -96,6 +96,10 @@ feedConfiguration =
     }
 
 postCtx :: Context String
-postCtx =
-  dateField "date" "%B %e, %Y"
-    `mappend` defaultContext
+postCtx = hDateCtx <> cDateCtx <> defaultContext
+
+hDateCtx :: Context String
+hDateCtx = dateField "hdate" "%B %e, %Y"
+
+cDateCtx :: Context String
+cDateCtx = dateField "cdate" "%Y-%m-%d"
