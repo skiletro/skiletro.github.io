@@ -64,7 +64,7 @@ content {
   max-width: 60rem;
   flex-direction: row-reverse;
 
-  & > * {
+  &>* {
     background-color: $background-color;
     outline: 2px solid $background-color;
     outline-offset: 2px;
@@ -74,11 +74,11 @@ content {
     }
   }
 
-  & > nav {
+  &>nav {
     padding: 1.25rem 0.75rem;
   }
 
-  & > article {
+  &>article {
     flex: auto;
     padding: 1.25rem;
     height: fit-content;
@@ -99,6 +99,7 @@ footer {
   text-align: right;
   color: white;
   mix-blend-mode: overlay;
+  pointer-events: none;
 
   p {
     padding: 0;
@@ -107,6 +108,7 @@ footer {
 
   a {
     color: inherit;
+    pointer-events: all;
   }
 
   @include for-phone-only {
@@ -201,7 +203,7 @@ ul {
   margin: 0;
   padding: 0;
 
-  & > li:before {
+  &>li:before {
     content: "-";
     color: oklch(82.67% 0.087 180);
     padding-left: 0.5rem;
