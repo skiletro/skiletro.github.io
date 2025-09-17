@@ -1,5 +1,6 @@
 ---
 title: VR + NixOS + Nvidia
+modified: June 21, 2025
 ---
 
 For the longest time, getting VR working nicely with Linux (and especially NixOS) was a monumental task.

@@ -133,14 +133,11 @@ removeIndexHtml item = return $ fmap (withUrls removeIndexStr) item
 --------------------------------------------------------------------------------
 
 postCtx :: Context String
-postCtx = hDateCtx <> cDateCtx <> modifiedCtx <> defaultContext
+postCtx = hDateCtx <> cDateCtx <> defaultContext
 
 hDateCtx :: Context String
 hDateCtx = dateField "hdate" "%B %e, %Y"
 
 cDateCtx :: Context String
 cDateCtx = dateField "cdate" "%Y-%m-%d"
-
-modifiedCtx :: Context String
-modifiedCtx = modificationTimeField "modified" "%B %e, %Y"
 --------------------------------------------------------------------------------
