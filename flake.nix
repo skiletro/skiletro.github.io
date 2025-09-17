@@ -6,12 +6,15 @@
     treefmt-nix.url = "github:numtide/treefmt-nix";
   };
   outputs = inputs @ {
-    nixpkgs,
     flake-parts,
     ...
   }:
     flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = nixpkgs.lib.systems.flakeExposed;
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "aarch64-darwin"
+      ];
       imports = [
         inputs.haskell-flake.flakeModule
         inputs.treefmt-nix.flakeModule
