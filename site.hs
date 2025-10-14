@@ -1,12 +1,15 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 
+import           Control.Exception     (SomeException, catch)
 import           Data.List             (isInfixOf, sortBy)
 import           Data.Monoid           (mappend)
 import           Hakyll
 import           Hakyll.Web.Sass       (sassCompiler)
+import           System.Environment
 import           System.FilePath.Posix (splitFileName, takeBaseName,
                                         takeDirectory, (</>))
+import           System.Process
 
 --------------------------------------------------------------------------------
 main :: IO ()
@@ -28,7 +31,7 @@ main = hakyll $ do
     route idRoute
     compile $
       pandocCompiler
-        >>= loadAndApplyTemplate "templates/default.html" defaultContext
+        >>= loadAndApplyTemplate "templates/default.html" defaultCtx
         >>= relativizeUrls
         >>= removeIndexHtml
 
@@ -36,7 +39,7 @@ main = hakyll $ do
     route prettyRoute
     compile $
       pandocCompiler
-        >>= loadAndApplyTemplate "templates/default.html" defaultContext
+        >>= loadAndApplyTemplate "templates/default.html" defaultCtx
         >>= relativizeUrls
         >>= removeIndexHtml
 
@@ -57,7 +60,7 @@ main = hakyll $ do
       let archiveCtx =
             listField "posts" postCtx (return posts)
               `mappend` constField "title" "Archives"
-              `mappend` defaultContext
+              `mappend` defaultCtx
 
       makeItem ""
         >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
@@ -89,7 +92,7 @@ main = hakyll $ do
       posts <- recentFirst =<< loadAll "posts/*"
       let indexCtx =
             listField "posts" postCtx (return posts)
-              `mappend` defaultContext
+              `mappend` defaultCtx
 
       getResourceBody
         >>= applyAsTemplate indexCtx
@@ -132,12 +135,32 @@ removeIndexHtml item = return $ fmap (withUrls removeIndexStr) item
 
 --------------------------------------------------------------------------------
 
+defaultCtx :: Context String
+defaultCtx = gitRevisionCtx <> defaultContext
+
 postCtx :: Context String
-postCtx = hDateCtx <> cDateCtx <> defaultContext
+postCtx = hDateCtx <> cDateCtx <> defaultCtx
 
 hDateCtx :: Context String
 hDateCtx = dateField "hdate" "%B %e, %Y"
 
 cDateCtx :: Context String
 cDateCtx = dateField "cdate" "%Y-%m-%d"
+
+gitRevisionField :: String -> Context String
+gitRevisionField = flip field (const gitRevision)
+
+-- Compiler which attempts to find the current git revision. This is done by
+-- first checking the "REVISION" environment variable and, if this fails,
+-- running the command "git rev-parse HEAD".
+gitRevision :: Compiler String
+gitRevision = do
+  rev <- unsafeCompiler (getEnv "REVISION" `catch` (\e -> return (e :: SomeException) >> return ""))
+  if rev == ""
+    then unixFilter "git" ["rev-parse", "--short=7", "HEAD"] ""
+    else return rev
+
+gitRevisionCtx :: Context String
+gitRevisionCtx = gitRevisionField "revision"
+
 --------------------------------------------------------------------------------

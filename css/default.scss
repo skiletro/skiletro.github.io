@@ -1,36 +1,25 @@
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
-
-@mixin for-phone-only {
-  @media (max-width: 499px) {
-    @content;
-  }
-}
-
-@mixin for-desktop-up {
-  @media (min-width: 1200px) {
-    @content;
-  }
-}
-
 $background-color: oklch(22.49% 0.008 297.21);
 $foreground-color: oklch(98.51% 0 0);
 $primary-color: oklch(82.67% 0.096 307.5);
 $secondary-color: oklch(from $primary-color l c 240);
 
+@import "syntax";
+
 :root {
-  font-size: 16px;
+  font-size: 16px; // acts as a sort of scale because everything uses rem.
 }
 
 * {
   box-sizing: border-box;
   transition: 0.1s ease-in-out;
-  // outline: 1px solid rgba(255, 0, 0, 0.2);
+  /* outline: 1px solid rgba(255, 1, 0, 0.2); */
+  padding: 0;
+  margin: 0;
 }
 
 body {
   display: flex;
   flex-direction: column;
-  font-family: "Space Grotesk", sans-serif;
   align-items: center;
   $opacity: 25%;
   background-color: black;
@@ -45,74 +34,23 @@ body {
   background-attachment: fixed;
   color: white;
   color: $foreground-color;
-  padding: 4rem 1rem 1rem 1rem;
-  margin: 0;
+  $gaps: 1rem;
+  padding: $gaps;
+  padding-top: 5rem;
+  gap: $gaps;
 
-  // Stops central content from shifting around when&if a scrollbar appears
-  width: 100vw;
   overflow-x: hidden;
 
-  @include for-phone-only {
-    padding: 0.25rem;
-    flex-direction: row;
-  }
-}
-
-content {
-  display: flex;
-  width: 100%;
-  max-width: 60rem;
-  flex-direction: row-reverse;
-
-  & > * {
-    background-color: $background-color;
-    outline: 2px solid $background-color;
-    outline-offset: 2px;
-
-    @include for-phone-only {
-      outline: 0px;
-    }
-  }
-
-  & > nav {
-    padding: 1.25rem 0.75rem;
-  }
-
-  & > article {
-    flex: auto;
-    padding: 1.25rem;
-    height: fit-content;
-  }
-
-  @include for-phone-only {
+  &>* {
+    display: flex;
     flex-direction: column;
-  }
-}
-
-footer {
-  position: fixed;
-  bottom: 0px;
-  opacity: 0.7;
-  font-size: 0.9rem;
-  padding: 0.5rem;
-  width: 100%;
-  text-align: right;
-  color: white;
-  mix-blend-mode: overlay;
-  pointer-events: none;
-
-  p {
-    padding: 0;
-    margin: 0;
-  }
-
-  a {
-    color: inherit;
-    pointer-events: all;
-  }
-
-  @include for-phone-only {
-    display: none;
+    gap: 1rem;
+    background-color: $background-color;
+    width: 100%;
+    max-width: 50rem;
+    padding: 1.5rem 2.5rem;
+    outline: 0.2rem solid $background-color;
+    outline-offset: 0.2rem;
   }
 }
 
@@ -120,12 +58,14 @@ footer {
 // This whole navbar section needs refactoring, because I'm already confused by it
 nav {
   display: flex;
-  position: sticky;
-  top: 4rem;
+  width: unset;
+  padding: 1rem;
+  position: fixed;
+  top: 1rem; // TODO: actually have this floating next to the side like the old site
+  right: 1rem;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  margin-left: 1rem;
   height: fit-content;
 
   svg {
@@ -146,36 +86,6 @@ nav {
 
   hr {
     width: 100%;
-  }
-
-  @include for-phone-only {
-    // TODO: i absolutely hate this: it feels extremely hacky.
-    top: 0.25rem;
-    margin-bottom: 0.4rem !important;
-    // end
-    z-index: 1;
-    margin: 0;
-    flex-direction: row;
-
-    a {
-      writing-mode: horizontal-tb;
-
-      &:first-child {
-        margin-right: auto;
-      }
-    }
-
-    span {
-      display: none;
-    }
-
-    hr {
-      display: none;
-    }
-
-    img {
-      display: none;
-    }
   }
 }
 
@@ -199,62 +109,48 @@ p {
 }
 
 ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   list-style-type: none;
   margin: 0;
   padding: 0;
 
-  & > li:before {
-    content: "-";
+  &>li:before {
+    content: "~";
     color: oklch(82.67% 0.087 180);
     padding-left: 0.5rem;
     padding-right: 0.25rem;
   }
 }
 
-h1 {
-  font-size: 1.25rem;
-}
-
 @for $i from 1 through 6 {
   h#{$i} {
     @include std-style;
     padding-top: 0.5rem;
-    font-size: 1rem;
 
     &:before {
-      $stars: "";
+      $hashes: "";
 
       @for $_ from 1 through $i {
-        $stars: $stars + "*";
+        $hashes: $hashes + "#";
       }
 
-      content: "#{$stars} ";
-      color: oklch(82.67% 0.087 #{280 + ($i - 1) * 20});
-      opacity: 0.75;
+      content: "#{$hashes} ";
+      color: oklch(82.67% 0.087 #{280 + ($i - 1) * 40});
     }
+  }
+}
+
+@for $i from 1 through 15 {
+  ul>li:nth-child(n+#{$i}):before {
+    color: oklch(82.67% 0.087 #{100 + ($i - 1) * 80});
   }
 }
 
 img {
   user-select: none;
   pointer-events: none;
-}
-
-code {
-  font-family: "Space Mono", monospace;
-
-  @include for-phone-only {
-    word-break: break-all;
-  }
-}
-
-div.sourceCode {
-  padding: 1rem;
-}
-
-div.sourceCode,
-code {
-  background-color: oklch(from $background-color calc(l - 0.05) c h);
 }
 
 hr {
@@ -270,4 +166,75 @@ hr {
   flex-direction: row;
   align-items: center;
   gap: 15px;
+}
+
+// FONTS!!!!!!!!!!!!!!!!! TODO: split up
+@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&display=swap");
+
+* {
+  font-family: "Atkinson Hyperlegible Next", sans-serif;
+  font-optical-sizing: auto;
+  text-transform: lowercase;
+}
+
+
+p,
+ul,
+span {
+  text-align: justify;
+  font-size: 1.25rem;
+}
+
+code {
+  font-family: "Atkinson Hyperlegible Mono", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 1.75rem;
+}
+
+address {
+  opacity: 0.5;
+  text-align: right;
+  width: auto;
+  margin-top: -2.1lh; // TODO: i can fix this when it becomes a problem :)
+  margin-bottom: 0.5rem; // SO HACKY
+}
+
+footer {
+  gap: 0;
+}
+
+footer>* {
+  text-align: center;
+  font-size: 1rem;
+  opacity: 0.5;
+}
+
+// SYNTAX!!!!!!!
+div.sourceCode {
+  // prettier-ignore
+  background-image:
+    url("/images/noise.png"),
+    radial-gradient(circle at center center, oklch(22.49% 0.008 297.21), transparent),
+    radial-gradient(circle at bottom left, #27577D, transparent),
+    radial-gradient(circle at top right, #952EA4 0%, transparent),
+    radial-gradient(circle at center right, #6949A5 0%, transparent),
+    radial-gradient(circle at top center, #336BA0 0%, transparent);
+  background-attachment: fixed;
+  padding: 0.2rem;
+  overflow: hidden;
+
+  &>* {
+    background-color: $background-color;
+    background-attachment: fixed;
+    padding: 1.2rem;
+    overflow: scroll;
+  }
 }
