@@ -5,6 +5,12 @@ $secondary-color: oklch(from $primary-color l c 240);
 
 @import "syntax";
 
+@mixin for-phone-only {
+  @media (max-width: 499px) {
+    @content;
+  }
+}
+
 :root {
   font-size: 16px; // acts as a sort of scale because everything uses rem.
 }
@@ -55,18 +61,16 @@ body {
 }
 
 // --- NAVIGATION BAR ---
-// This whole navbar section needs refactoring, because I'm already confused by it
 nav {
   display: flex;
   width: unset;
   padding: 1rem;
   position: fixed;
-  top: 1rem; // TODO: actually have this floating next to the side like the old site
-  right: 1rem;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
   height: fit-content;
+  transform: translateX(28rem);
 
   svg {
     fill: $foreground-color;
@@ -86,6 +90,15 @@ nav {
 
   hr {
     width: 100%;
+  }
+}
+
+@include for-phone-only {
+  position: inherit;
+  flex-direction: row;
+
+  hr {
+    display: none;
   }
 }
 
@@ -150,7 +163,20 @@ ul {
 
 img {
   user-select: none;
-  pointer-events: none;
+
+  &:hover {
+    animation: spin 0.5s ease-in-out;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 hr {
@@ -169,8 +195,16 @@ hr {
 }
 
 // FONTS!!!!!!!!!!!!!!!!! TODO: split up
-@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200..800;1,200..800&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,200..800;1,200..800&display=swap");
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  src: url("/assets/fonts/AtkinsonHyperlegibleNext-Regular.ttf")
+}
+
+
+@font-face {
+  font-family: "Atkinson Hyperlegible Mono";
+  src: url("/assets/fonts/AtkinsonHyperlegibleMono-Regular.ttf")
+}
 
 * {
   font-family: "Atkinson Hyperlegible Next", sans-serif;
@@ -186,9 +220,7 @@ span {
   font-size: 1.25rem;
 }
 
-code {
-  font-family: "Atkinson Hyperlegible Mono", monospace;
-}
+code {}
 
 h1,
 h2,
@@ -227,9 +259,10 @@ div.sourceCode {
     radial-gradient(circle at top right, #952EA4 0%, transparent),
     radial-gradient(circle at center right, #6949A5 0%, transparent),
     radial-gradient(circle at top center, #336BA0 0%, transparent);
-  background-attachment: fixed;
+  background-attachment: scroll;
   padding: 0.2rem;
   overflow: hidden;
+  font-family: "Atkinson Hyperlegible Mono", monospace;
 
   &>* {
     background-color: $background-color;

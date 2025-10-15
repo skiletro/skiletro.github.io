@@ -1,47 +1,28 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 
-import           Control.Exception     (SomeException, catch)
-import           Data.List             (isInfixOf, sortBy)
-import           Data.Monoid           (mappend)
-import           Hakyll
-import           Hakyll.Web.Sass       (sassCompiler)
-import           System.Environment
-import           System.FilePath.Posix (splitFileName, takeBaseName,
-                                        takeDirectory, (</>))
-import           System.Process
+import Control.Exception
+import Data.List
+import Data.Monoid
+import Hakyll
+import Hakyll.Web.Sass
+import System.Environment
+import System.FilePath.Posix
+import System.Process
 
 --------------------------------------------------------------------------------
 main :: IO ()
 main = hakyll $ do
-  match "images/*" $ do
+  match "templates/*" $ compile templateBodyCompiler
+
+  match ("assets/images/*" .||. "assets/fonts/*") $ do
     route idRoute
     compile copyFileCompiler
 
-  match "css/*.css" $ do
-    route idRoute
-    compile compressCssCompiler
-
-  match "css/*.scss" $ do
+  match "assets/css/*" $ do
     route $ setExtension "css"
     let compressCssItem = fmap compressCss
     compile (compressCssItem <$> sassCompiler)
-
-  match "404.html" $ do
-    route idRoute
-    compile $
-      pandocCompiler
-        >>= loadAndApplyTemplate "templates/default.html" defaultCtx
-        >>= relativizeUrls
-        >>= removeIndexHtml
-
-  match "pages/*.html" $ do
-    route prettyRoute
-    compile $
-      pandocCompiler
-        >>= loadAndApplyTemplate "templates/default.html" defaultCtx
-        >>= relativizeUrls
-        >>= removeIndexHtml
 
   match "posts/*" $ do
     route prettyRoute
@@ -53,14 +34,30 @@ main = hakyll $ do
         >>= relativizeUrls
         >>= removeIndexHtml
 
+  match "pages/*.html" $ do
+    route prettyRoute
+    compile $
+      pandocCompiler
+        >>= loadAndApplyTemplate "templates/default.html" defaultCtx
+        >>= relativizeUrls
+        >>= removeIndexHtml
+
+  match "404.html" $ do
+    route idRoute
+    compile $
+      pandocCompiler
+        >>= loadAndApplyTemplate "templates/default.html" defaultCtx
+        >>= relativizeUrls
+        >>= removeIndexHtml
+
   create ["archive.html"] $ do
     route prettyRoute
     compile $ do
       posts <- recentFirst =<< loadAll "posts/*"
       let archiveCtx =
             listField "posts" postCtx (return posts)
-              `mappend` constField "title" "Archives"
-              `mappend` defaultCtx
+              <> constField "title" "Archives"
+              <> defaultCtx
 
       makeItem ""
         >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
@@ -68,10 +65,24 @@ main = hakyll $ do
         >>= relativizeUrls
         >>= removeIndexHtml
 
+  match "index.html" $ do
+    route idRoute
+    compile $ do
+      posts <- recentFirst =<< loadAll "posts/*"
+      let indexCtx =
+            listField "posts" postCtx (return posts)
+              <> defaultCtx
+
+      getResourceBody
+        >>= applyAsTemplate indexCtx
+        >>= loadAndApplyTemplate "templates/default.html" indexCtx
+        >>= relativizeUrls
+        >>= removeIndexHtml
+
   create ["atom.xml"] $ do
     route idRoute
     compile $ do
-      let feedCtx = postCtx `mappend` bodyField "description"
+      let feedCtx = postCtx <> bodyField "description"
       posts <-
         fmap (take 10) . recentFirst
           =<< loadAllSnapshots "posts/*" "content"
@@ -80,27 +91,11 @@ main = hakyll $ do
   create ["rss.xml"] $ do
     route idRoute
     compile $ do
-      let feedCtx = postCtx `mappend` bodyField "description"
+      let feedCtx = postCtx <> bodyField "description"
       posts <-
         fmap (take 10) . recentFirst
           =<< loadAllSnapshots "posts/*" "content"
       renderRss feedConfiguration feedCtx posts
-
-  match "index.html" $ do
-    route idRoute
-    compile $ do
-      posts <- recentFirst =<< loadAll "posts/*"
-      let indexCtx =
-            listField "posts" postCtx (return posts)
-              `mappend` defaultCtx
-
-      getResourceBody
-        >>= applyAsTemplate indexCtx
-        >>= loadAndApplyTemplate "templates/default.html" indexCtx
-        >>= relativizeUrls
-        >>= removeIndexHtml
-
-  match "templates/*" $ compile templateBodyCompiler
 
 --------------------------------------------------------------------------------
 feedConfiguration :: FeedConfiguration
@@ -129,9 +124,9 @@ removeIndexHtml item = return $ fmap (withUrls removeIndexStr) item
     removeIndexStr :: String -> String
     removeIndexStr url = case splitFileName url of
       (dir, "index.html") | isLocal dir -> dir
-      _                                 -> url
+      _ -> url
       where
-        isLocal uri = not (isInfixOf "://" uri)
+        isLocal uri = not ("://" `isInfixOf` uri)
 
 --------------------------------------------------------------------------------
 
@@ -150,17 +145,11 @@ cDateCtx = dateField "cdate" "%Y-%m-%d"
 gitRevisionField :: String -> Context String
 gitRevisionField = flip field (const gitRevision)
 
--- Compiler which attempts to find the current git revision. This is done by
--- first checking the "REVISION" environment variable and, if this fails,
--- running the command "git rev-parse HEAD".
 gitRevision :: Compiler String
-gitRevision = do
-  rev <- unsafeCompiler (getEnv "REVISION" `catch` (\e -> return (e :: SomeException) >> return ""))
-  if rev == ""
-    then unixFilter "git" ["rev-parse", "--short=7", "HEAD"] ""
-    else return rev
+gitRevision = unixFilter "git" ["rev-parse", "--short=7", "HEAD"] ""
 
 gitRevisionCtx :: Context String
 gitRevisionCtx = gitRevisionField "revision"
 
+--------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
