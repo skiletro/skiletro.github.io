@@ -3,10 +3,8 @@ $foreground-color: oklch(98.51% 0 0);
 $primary-color: oklch(82.67% 0.096 307.5);
 $secondary-color: oklch(from $primary-color l c 240);
 
-@import "syntax";
-
 @mixin for-phone-only {
-  @media (max-width: 499px) {
+  @media (max-width: 700px) {
     @content;
   }
 }
@@ -91,14 +89,35 @@ nav {
   hr {
     width: 100%;
   }
+
 }
 
-@include for-phone-only {
-  position: inherit;
-  flex-direction: row;
 
-  hr {
-    display: none;
+@include for-phone-only {
+  body {
+    padding: 0rem;
+    gap: 0.2rem;
+
+    &>* {
+      outline: 0;
+    }
+  }
+
+  nav {
+    position: inherit;
+    flex-direction: row;
+    transform: translateX(0rem) !important;
+    width: 100%;
+    justify-content: space-between;
+
+    a {
+
+      writing-mode: inherit;
+    }
+
+    hr {
+      display: none;
+    }
   }
 }
 
@@ -163,20 +182,6 @@ ul {
 
 img {
   user-select: none;
-
-  &:hover {
-    animation: spin 0.5s ease-in-out;
-  }
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 hr {
