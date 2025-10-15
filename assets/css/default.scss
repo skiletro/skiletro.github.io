@@ -59,7 +59,7 @@ body {
   overflow-x: hidden;
   color: $clr-fg;
   background-color: black;
-  background: url("/images/noise.png"),
+  background: url("/assets/images/noise.png"),
     radial-gradient(circle at center, $clr-bg, transparent),
     radial-gradient(circle at bottom left, #27577D, transparent),
     radial-gradient(circle at top right, #952EA4 0%, transparent),
