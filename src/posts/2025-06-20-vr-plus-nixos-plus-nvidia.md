@@ -101,9 +101,11 @@ We are using `osConfig` in this case, as to use the same package we use when ena
 Going back to our main configuration, we now need to tell the game to actually use these settings.
 
 We can do this by setting our game launch options to...
+
 ```sh
 PRESSURE_VESSEL_FILESYSTEMS_RW=$XDG_RUNTIME_DIR/wivrn/comp_ipc %command%
 ```
+
 ...however, that isn't very "Nix", is it?
 To do this for _every_ game, we can override our steam package to include this environment variable.
 

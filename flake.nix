@@ -5,8 +5,13 @@
     haskell-flake.url = "github:srid/haskell-flake"; # https://community.flake.parts/haskell-flake
     treefmt-nix.url = "github:numtide/treefmt-nix";
   };
-  outputs = inputs @ {flake-parts, ...}:
-    flake-parts.lib.mkFlake {inherit inputs;} {
+  outputs =
+    inputs@{
+      self,
+      flake-parts,
+      ...
+    }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [
         "x86_64-linux"
         "aarch64-linux"
@@ -17,35 +22,56 @@
         inputs.treefmt-nix.flakeModule
       ];
 
-      perSystem = {
-        self',
-        pkgs,
-        ...
-      }: {
-        haskellProjects.default = {
-          devShell = {
-            enable = true;
-            tools = hp: {inherit (hp) hakyll;};
-            hlsCheck.enable = true;
-            mkShellArgs = {
-              buildInputs = with pkgs; [just sass];
-              shellHook = "just -l -u";
+      perSystem =
+        {
+          self',
+          pkgs,
+          lib,
+          ...
+        }:
+        {
+          packages.default = pkgs.stdenvNoCC.mkDerivation {
+            name = "website";
+            src = ./src;
+
+            GIT_REVISION = if (self ? shortRev) then self.shortRev else "dirty";
+
+            buildPhase = ''
+              ${lib.getExe self'.packages.ssg} build --verbose
+            '';
+
+            installPhase = ''
+              mkdir -p $out/dist
+              cp -a _site/. $out/dist
+            '';
+          };
+
+          haskellProjects.default = {
+            projectRoot = ./ssg;
+            devShell = {
+              enable = true;
+              tools = hp: { inherit (hp) hakyll; };
+              hlsCheck.enable = true;
+              mkShellArgs = {
+                buildInputs = with pkgs; [
+                  just
+                  sass
+                ];
+                shellHook = "just -l -u";
+              };
+            };
+          };
+
+          treefmt = {
+            flakeCheck = true;
+            programs = {
+              nixfmt.enable = true;
+              deadnix.enable = true;
+              just.enable = true;
+              prettier.enable = true;
+              stylish-haskell.enable = true;
             };
           };
         };
-
-        treefmt = {
-          flakeCheck = true;
-          programs = {
-            alejandra.enable = true;
-            deadnix.enable = true;
-            just.enable = true;
-            prettier.enable = true;
-            stylish-haskell.enable = true;
-          };
-        };
-
-        packages.default = self'.packages.skiletro; # haskell-flake doesn't set the default package, but you can do it here.
-      };
     };
 }

@@ -1,10 +1,10 @@
-name:               skiletro
+name:               ssg
 version:            0.1.0.0
 build-type:         Simple
 cabal-version:      >= 1.10
 
 executable site
-  main-is:          site.hs
+  main-is:          Main.hs
   build-depends:    base == 4.*
                   , filepath
                   , hakyll == 4.16.*

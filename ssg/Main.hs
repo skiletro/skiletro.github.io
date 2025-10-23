@@ -1,14 +1,15 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 
-import Control.Exception
-import Data.List
-import Data.Monoid
-import Hakyll
-import Hakyll.Web.Sass
-import System.Environment
-import System.FilePath.Posix
-import System.Process
+import           Control.Exception
+import           Data.List
+import           Data.Maybe
+import           Data.Monoid
+import           Hakyll
+import           Hakyll.Web.Sass
+import           System.Environment
+import           System.FilePath.Posix
+import           System.Process
 
 --------------------------------------------------------------------------------
 main :: IO ()
@@ -47,7 +48,7 @@ main = hakyll $ do
     compile $
       pandocCompiler
         >>= loadAndApplyTemplate "templates/default.html" defaultCtx
-        >>= relativizeUrls
+        -- >>= relativizeUrls
         >>= removeIndexHtml
 
   create ["archive.html"] $ do
@@ -124,7 +125,7 @@ removeIndexHtml item = return $ fmap (withUrls removeIndexStr) item
     removeIndexStr :: String -> String
     removeIndexStr url = case splitFileName url of
       (dir, "index.html") | isLocal dir -> dir
-      _ -> url
+      _                                 -> url
       where
         isLocal uri = not ("://" `isInfixOf` uri)
 
@@ -142,14 +143,9 @@ hDateCtx = dateField "hdate" "%B %e, %Y"
 cDateCtx :: Context String
 cDateCtx = dateField "cdate" "%Y-%m-%d"
 
-gitRevisionField :: String -> Context String
-gitRevisionField = flip field (const gitRevision)
-
-gitRevision :: Compiler String
-gitRevision = unixFilter "git" ["rev-parse", "--short=7", "HEAD"] ""
-
 gitRevisionCtx :: Context String
-gitRevisionCtx = gitRevisionField "revision"
+gitRevisionCtx = field "revision" $ \_ -> do
+  mRevision <- unsafeCompiler $ lookupEnv "GIT_REVISION"
+  return $ fromMaybe "dev" mRevision
 
---------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
