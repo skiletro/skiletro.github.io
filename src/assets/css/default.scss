@@ -1,10 +1,36 @@
 // VARIABLES AND IMPORTS
 // ---------------------------------------------------------------------------
 
-$clr-bg: oklch(22.49% 0.008 297.21);
-$clr-fg: oklch(98.51% 0 0);
-$clr-primary: oklch(82.67% 0.096 307.5);
-$clr-secondary: oklch(from $clr-primary l c 240); // hue-shifted copy
+$clr-bg: #0d0f13;
+$clr-fg: #fffdfb;
+
+$clr-red: #f58c81;
+$clr-blood-orange: #f48e74;
+$clr-orange: #e09f47;
+$clr-yellow: #a9b852;
+$clr-green: #54c794;
+$clr-cyan: #00c4d7;
+$clr-blue: #6eb2fd;
+$clr-purple: #b69cf6;
+$clr-magenta: #e58cc5;
+$clr-list:
+  1 $clr-purple,
+  2 $clr-blue,
+  3 $clr-green,
+  4 $clr-yellow,
+  5 $clr-orange,
+  6 $clr-red,
+  7 $clr-magenta;
+
+$clr-primary: $clr-purple;
+
+$gradient-background:
+  url("/assets/images/noise.png"),
+  radial-gradient(circle at center, $clr-bg, transparent),
+  radial-gradient(circle at bottom left, $clr-blue, transparent),
+  radial-gradient(circle at top right, $clr-purple 0%, transparent),
+  radial-gradient(circle at top center, $clr-magenta 0%, transparent),
+  radial-gradient(circle at center, $clr-bg, $clr-bg);
 
 $gap: 1rem;
 $max-width: 50rem;
@@ -42,6 +68,8 @@ $mobile: 980px;
   font-family: "Atkinson Hyperlegible Next", sans-serif;
   font-optical-sizing: auto;
   text-transform: lowercase;
+
+  scrollbar-color: $clr-primary $clr-bg;
 }
 
 html {
@@ -58,14 +86,7 @@ body {
   padding: 5rem $gap $gap;
   overflow-x: hidden;
   color: $clr-fg;
-  background-color: black;
-  background:
-    url("/assets/images/noise.png"),
-    radial-gradient(circle at center, $clr-bg, transparent),
-    radial-gradient(circle at bottom left, #27577d, transparent),
-    radial-gradient(circle at top right, #952ea4 0%, transparent),
-    radial-gradient(circle at center right, #6949a5 0%, transparent),
-    radial-gradient(circle at top center, #336ba0 0%, transparent);
+  background: $gradient-background;
   background-attachment: fixed;
 }
 
@@ -167,16 +188,16 @@ h6 {
 }
 
 // auto-generate heading prefixes
-@for $i from 1 through 6 {
-  h#{$i}::before {
+@each $num, $color in $clr-list {
+  h#{$num}::before {
     $hashes: "";
 
-    @for $_ from 1 through $i {
+    @for $_ from 1 through $num {
       $hashes: $hashes + "#";
     }
 
     content: "#{$hashes} ";
-    color: oklch(82.67% 0.087 #{280 + ($i - 1) * 40});
+    color: $color;
   }
 }
 
@@ -192,14 +213,14 @@ ul {
   li::before {
     content: "~";
     padding: 0 0.25rem 0 0.5rem;
-    color: oklch(82.67% 0.087 180);
+    color: $clr-primary;
   }
 }
 
 // rainbow list items
-@for $i from 1 through 15 {
-  ul li:nth-child(n + #{$i})::before {
-    color: oklch(82.67% 0.087 #{100 + ($i - 1) * 80});
+@each $num, $color in $clr-list {
+  ul li:nth-child(n + #{$num})::before {
+    color: $color;
   }
 }
 
@@ -249,13 +270,7 @@ div.sourceCode {
   overflow: hidden;
   font-family: "Atkinson Hyperlegible Mono", monospace;
   background-color: black;
-  background:
-    url("/images/noise.png"),
-    radial-gradient(circle at center, $clr-bg, transparent),
-    radial-gradient(circle at bottom left, #27577d, transparent),
-    radial-gradient(circle at top right, #952ea4 0%, transparent),
-    radial-gradient(circle at center right, #6949a5 0%, transparent),
-    radial-gradient(circle at top center, #336ba0 0%, transparent);
+  background: $gradient-background;
   background-attachment: scroll;
 
   outline: 0.2rem solid $clr-bg;
